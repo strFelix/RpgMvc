@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\pastaLocal\\RpgMvc\\RpgMvc.csproj": {}
+    "D:\\PastaLocal\\RpgMvc\\RpgMvc.csproj": {}
   },
   "projects": {
-    "D:\\pastaLocal\\RpgMvc\\RpgMvc.csproj": {
+    "D:\\PastaLocal\\RpgMvc\\RpgMvc.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\pastaLocal\\RpgMvc\\RpgMvc.csproj",
+        "projectUniqueName": "D:\\PastaLocal\\RpgMvc\\RpgMvc.csproj",
         "projectName": "RpgMvc",
-        "projectPath": "D:\\pastaLocal\\RpgMvc\\RpgMvc.csproj",
+        "projectPath": "D:\\PastaLocal\\RpgMvc\\RpgMvc.csproj",
         "packagesPath": "C:\\Users\\etechas\\.nuget\\packages\\",
-        "outputPath": "D:\\pastaLocal\\RpgMvc\\obj\\",
+        "outputPath": "D:\\PastaLocal\\RpgMvc\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
