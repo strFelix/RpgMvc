@@ -16585,8 +16585,8 @@
       "FileKind": "mvc"
     },
     {
-      "FilePath": "d:\\pastaLocal\\RpgMvc\\Views\\Usuarios\\CadastrarUsuarios.cshtml",
-      "TargetPath": "Views\\Usuarios\\CadastrarUsuarios.cshtml",
+      "FilePath": "d:\\pastaLocal\\RpgMvc\\Views\\Usuarios\\CadastrarUsuario.cshtml",
+      "TargetPath": "Views\\Usuarios\\CadastrarUsuario.cshtml",
       "FileKind": "mvc"
     },
     {
