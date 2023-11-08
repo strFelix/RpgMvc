@@ -2,6 +2,7 @@ using System.Net.Http;
 using Newtonsoft.Json;
 using Microsoft.AspNetCore.Mvc;
 using RpgMvc.Models;
+using Microsoft.AspNetCore.Http;
 
 namespace RpgMvc.Controllers
 {
@@ -71,6 +72,7 @@ namespace RpgMvc.Controllers
                 if(response.StatusCode == System.Net.HttpStatusCode.OK)
                 {
                     UsuarioViewModel uLogado = JsonConvert.DeserializeObject<UsuarioViewModel>(serialized);
+                    HttpContext.Session.SetString("SessionTokenUsuario", uLogado.Token);
                     TempData["Mensagem"] = string.Format("Bem-vindo {0}!!!", uLogado.Username);
                     return RedirectToAction("Index", "Personagens");
                 }
@@ -78,8 +80,6 @@ namespace RpgMvc.Controllers
                 {
                     throw new System.Exception(serialized);
                 }
-
-
             }
             catch (System.Exception ex)
             {
