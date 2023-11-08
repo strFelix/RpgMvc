@@ -11,6 +11,7 @@ namespace RpgMvc.Controllers
 {
     public class PersonagensController : Controller
     {
+        //public string uriBase = "http://lzsouza.somee.com/RpgApi/Personagens/";
         public string uriBase = "http://myprojects.somee.com/RpgApi/Personagens/";
     
         [HttpGet]
@@ -43,7 +44,7 @@ namespace RpgMvc.Controllers
             }
             catch (System.Exception ex)
             {
-                TempData["MenssagemErro"] = ex.Message;
+                TempData["MensagemErro"] = ex.Message;
                 return RedirectToAction("Index");
             }
         }
@@ -54,25 +55,24 @@ namespace RpgMvc.Controllers
             try
             {
                 HttpClient httpClient = new HttpClient();
-                string token = HttpContext.Session.GetString("SessionTokenUsuario");
-                httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
 
                 var content = new StringContent(JsonConvert.SerializeObject(p));
-                content.Headers.ContentType = new MediaTypeHeaderValue("aplication/json");
+                content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
                 HttpResponseMessage response = await httpClient.PostAsync(uriBase, content);
+
                 string serialized = await response.Content.ReadAsStringAsync();
 
                 if (response.StatusCode == System.Net.HttpStatusCode.OK)
                 {
-                   TempData["Menssagem"] = string.Format("Personagem {0}, Id {1} salvo com sucesso!", p.Nome, serialized);
-                   return RedirectToAction("Index");
+                   TempData["Mensagem"] = string.Format("Personagem {0} foi criado com sucesso!", p.Nome);
+                   return RedirectToAction("Index", "Personagens");
                 }
                 else
                     throw new System.Exception(serialized);
             }
             catch (System.Exception ex)
             {
-                TempData["MenssagemErro"] = ex.Message;
+                TempData["MensagemErro"] = ex.Message;
                 return RedirectToAction("Create");
             }
         }
@@ -87,19 +87,20 @@ namespace RpgMvc.Controllers
                 httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
                 HttpResponseMessage response = await httpClient.GetAsync(uriBase + id.ToString());
                 string serialized = await response.Content.ReadAsStringAsync();
-
+                
                 if (response.StatusCode == System.Net.HttpStatusCode.OK)
                 {
-                  PersonagemViewModel p = await Task.Run(() =>
-                    JsonConvert.DeserializeObject<PersonagemViewModel>(serialized));
-                  return View(p);
+                    PersonagemViewModel p = await Task.Run(() =>
+                        JsonConvert.DeserializeObject<PersonagemViewModel>(serialized));
+                    TempData["Mensagem"] = string.Format("Personagem com Id {0} removido com sucesso!", id);
+                    return View(p);
                 }
                 else
                     throw new System.Exception(serialized);
             }
             catch (System.Exception ex)
             {
-                TempData["MenssagemErro"] = ex.Message;
+                TempData["MensagemErro"] = ex.Message;
                 return RedirectToAction("Index");
             }
         }
@@ -128,7 +129,7 @@ namespace RpgMvc.Controllers
             }
             catch (System.Exception ex)
             {
-                TempData["MenssagemErro"] = ex.Message;
+                TempData["MensagemErro"] = ex.Message;
                 return RedirectToAction("Index");
             }
         }
@@ -139,17 +140,19 @@ namespace RpgMvc.Controllers
             try
             {
                 HttpClient httpClient = new HttpClient();
+
                 string token = HttpContext.Session.GetString("SessionTokenUsuario");
                 httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
 
                 var content = new StringContent(JsonConvert.SerializeObject(p));
-                content.Headers.ContentType = new MediaTypeHeaderValue("aplication/json");
-                HttpResponseMessage response = await httpClient.PostAsync(uriBase, content);
+                content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+                
+                HttpResponseMessage response = await httpClient.PutAsync(uriBase, content);
                 string serialized = await response.Content.ReadAsStringAsync();
 
                 if(response.StatusCode == System.Net.HttpStatusCode.OK)
                 {
-                    TempData["Menssagem"] = 
+                    TempData["Mensagem"] = 
                         string.Format("Personagem {0}, classe {1} atualizado com sucesso!", p.Nome, p.Classe);
                     return RedirectToAction("Index");
                 }
@@ -158,7 +161,7 @@ namespace RpgMvc.Controllers
             }
             catch (System.Exception ex)
             {
-                TempData["MenssagemErro"] = ex.Message;
+                TempData["MensagemErro"] = ex.Message;
                 return RedirectToAction("Index");
             }
         }
@@ -177,8 +180,8 @@ namespace RpgMvc.Controllers
 
                 if(response.StatusCode == System.Net.HttpStatusCode.OK)
                 {
-                    TempData["Menssagem"] = 
-                        string.Format("Personagem Id {1} removido com sucesso!", id);
+                    TempData["Mensagem"] = 
+                        string.Format("Personagem com ID:{0} removido com sucesso!", id);
                     return RedirectToAction("Index");
                 }
                 else
@@ -186,7 +189,7 @@ namespace RpgMvc.Controllers
             }
             catch (System.Exception ex)
             {
-                TempData["MenssagemErro"] = ex.Message;
+                TempData["MensagemErro"] = ex.Message;
                 return RedirectToAction("Index");
             }
         }

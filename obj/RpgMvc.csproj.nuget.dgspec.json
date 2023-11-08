@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Felix\\Desktop\\Projetos\\Projects\\RpgMvc\\RpgMvc.csproj": {}
+    "C:\\Users\\User\\Documents\\Projects\\RpgMvc\\RpgMvc.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Felix\\Desktop\\Projetos\\Projects\\RpgMvc\\RpgMvc.csproj": {
+    "C:\\Users\\User\\Documents\\Projects\\RpgMvc\\RpgMvc.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Felix\\Desktop\\Projetos\\Projects\\RpgMvc\\RpgMvc.csproj",
+        "projectUniqueName": "C:\\Users\\User\\Documents\\Projects\\RpgMvc\\RpgMvc.csproj",
         "projectName": "RpgMvc",
-        "projectPath": "C:\\Users\\Felix\\Desktop\\Projetos\\Projects\\RpgMvc\\RpgMvc.csproj",
-        "packagesPath": "C:\\Users\\Felix\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Felix\\Desktop\\Projetos\\Projects\\RpgMvc\\obj\\",
+        "projectPath": "C:\\Users\\User\\Documents\\Projects\\RpgMvc\\RpgMvc.csproj",
+        "packagesPath": "C:\\Users\\User\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\User\\Documents\\Projects\\RpgMvc\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Felix\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\User\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net7.0"

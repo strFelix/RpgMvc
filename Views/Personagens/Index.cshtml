@@ -5,6 +5,17 @@
     ViewBag.Title = "Personagens";
 }<!--Título da página para o navegador-->
 <h2>Relação de Personagens</h2>
+@if (@TempData["Mensagem"] != null)
+{
+    <div class="alert alert-success" role="alert">
+        @TempData["Mensagem"]</div>
+}
+<!--Configuração para exibir mensagem de erro -->
+@if (@TempData["MensagemErro"] != null)
+{
+    <div class="alert alert-danger" role="alert">
+        @TempData["MensagemErro"]</div>
+}
 <!--Título da página-->
 <p>
   <!--Links apontando para views na mesma pasta-->
@@ -36,9 +47,8 @@
         <td>
           <!--Coluna para Links/botões-->
       @Html.ActionLink("Editar", "Edit", new { id = item.Id } ) |
-                @Html.ActionLink("Detalhes", "Details", new { id = item.Id }) |
-                @Html.ActionLink("Deletar", "Delete", new { id = item.Id }, 
-                  new {onclick = "return confirm('Deseja realmente deletar este personagem ?');"})
+      @Html.ActionLink("Detalhes", "Details", new { id = item.Id }) |
+      @Html.ActionLink("Deletar", "Delete", new { id = item.Id }, new {onclick = "return confirm('Deseja realmente deletar este personagem ?');"})
         </td>
       </tr>
     }

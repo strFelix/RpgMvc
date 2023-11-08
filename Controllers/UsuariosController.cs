@@ -1,7 +1,12 @@
-using System.Net.Http;
-using Newtonsoft.Json;
 using Microsoft.AspNetCore.Mvc;
 using RpgMvc.Models;
+using System.Net.Http;
+using Newtonsoft.Json;
+using Microsoft.AspNetCore.Http;
+using System.Net.Http.Headers;
+using System.Threading.Tasks;
+using System.Net.Http;
+using System.Collections.Generic;
 using Microsoft.AspNetCore.Http;
 
 namespace RpgMvc.Controllers
@@ -9,11 +14,12 @@ namespace RpgMvc.Controllers
     public class UsuariosController : Controller
     {
         public string uriBase = "http://myprojects.somee.com/RpgApi/Usuarios/";
+       // public string uriBase = "http://lzsouza.somee.com/RpgApi/Usuarios/";
 
         [HttpGet]
         public ActionResult Index()
         {
-            return View("CadastrarUsuarios");
+            return View("CadastrarUsuario");
         }
 
         [HttpGet]
@@ -31,7 +37,7 @@ namespace RpgMvc.Controllers
                 string uriComplementar = "Registrar";
 
                 var content = new StringContent(JsonConvert.SerializeObject(u));
-                content.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("aplication/json");
+                content.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("application/json");
                 HttpResponseMessage response = await httpClient.PostAsync(uriBase + uriComplementar, content);
 
                 string serialized = await response.Content.ReadAsStringAsync();
@@ -64,12 +70,12 @@ namespace RpgMvc.Controllers
                 string uriComplementar = "Autenticar";
 
                 var content = new StringContent(JsonConvert.SerializeObject(u));
-                content.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("aplication/json");
+                content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
                 HttpResponseMessage response = await httpClient.PostAsync(uriBase + uriComplementar, content);
 
                 string serialized = await response.Content.ReadAsStringAsync();
 
-                if(response.StatusCode == System.Net.HttpStatusCode.OK)
+                if (response.StatusCode == System.Net.HttpStatusCode.OK)
                 {
                     UsuarioViewModel uLogado = JsonConvert.DeserializeObject<UsuarioViewModel>(serialized);
                     HttpContext.Session.SetString("SessionTokenUsuario", uLogado.Token);
@@ -84,8 +90,8 @@ namespace RpgMvc.Controllers
             catch (System.Exception ex)
             {
                 TempData["MensagemErro"] = ex.Message;
-                return IndexLogin();
-            }
+                return RedirectToAction("Index");
+            }        
         }
     }    
 }
