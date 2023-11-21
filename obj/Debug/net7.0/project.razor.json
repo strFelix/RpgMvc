@@ -16565,6 +16565,11 @@
       "FileKind": "mvc"
     },
     {
+      "FilePath": "d:\\PastaLocal\\Api\\RpgMvc\\Views\\Disputas\\IndexDisputas.cshtml",
+      "TargetPath": "Views\\Disputas\\IndexDisputas.cshtml",
+      "FileKind": "mvc"
+    },
+    {
       "FilePath": "d:\\PastaLocal\\Api\\RpgMvc\\Views\\Home\\Index.cshtml",
       "TargetPath": "Views\\Home\\Index.cshtml",
       "FileKind": "mvc"

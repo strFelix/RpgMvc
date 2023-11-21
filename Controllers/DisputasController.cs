@@ -23,10 +23,10 @@ namespace RpgMvc.Controllers
                 httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
 
                 string uriBuscaPersonagens = "http://myprojects.somee.com/RpgApi/Personagens/GetAll";
-                HttpResponseMessage response = await httpClient.GetAsync(uriBuscaPersonagens); 
+                HttpResponseMessage response = await httpClient.GetAsync(uriBuscaPersonagens);
                 string serialized = await response.Content.ReadAsStringAsync();
 
-                if(response.StatusCode == System.Net.HttpStatusCode.OK)
+                if (response.StatusCode == System.Net.HttpStatusCode.OK)
                 {
                     List<PersonagemViewModel> listaPersonagens = await Task.Run(() =>
                         JsonConvert.DeserializeObject<List<PersonagemViewModel>>(serialized));
@@ -59,7 +59,7 @@ namespace RpgMvc.Controllers
 
                 string serialized = await response.Content.ReadAsStringAsync();
 
-                if(response.StatusCode == System.Net.HttpStatusCode.OK)
+                if (response.StatusCode == System.Net.HttpStatusCode.OK)
                 {
                     disputa = await Task.Run(() => JsonConvert.DeserializeObject<DisputaViewModel>(serialized));
                     TempData["Mensagem"] = disputa.Narracao;
@@ -80,15 +80,15 @@ namespace RpgMvc.Controllers
         {
             try
             {
-               HttpClient httpClient = new HttpClient();
+                HttpClient httpClient = new HttpClient();
                 string token = HttpContext.Session.GetString("SessionTokenUsuario");
                 httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
 
                 string uriBuscaPersonagens = "http://myprojects.somee.com/RpgApi/Personagens/GetAll";
-                HttpResponseMessage response = await httpClient.GetAsync(uriBuscaPersonagens); 
+                HttpResponseMessage response = await httpClient.GetAsync(uriBuscaPersonagens);
                 string serialized = await response.Content.ReadAsStringAsync();
 
-                if(response.StatusCode == System.Net.HttpStatusCode.OK)
+                if (response.StatusCode == System.Net.HttpStatusCode.OK)
                 {
                     List<PersonagemViewModel> listaPersonagens = await Task.Run(() =>
                         JsonConvert.DeserializeObject<List<PersonagemViewModel>>(serialized));
@@ -103,7 +103,7 @@ namespace RpgMvc.Controllers
                 response = await httpClient.GetAsync(uriBuscaHbilidades);
                 serialized = await response.Content.ReadAsStringAsync();
 
-                if(response.StatusCode == System.Net.HttpStatusCode.OK)
+                if (response.StatusCode == System.Net.HttpStatusCode.OK)
                 {
                     List<HabilidadeViewModel> listaHabilidades = await Task.Run(() =>
                         JsonConvert.DeserializeObject<List<HabilidadeViewModel>>(serialized));
@@ -135,7 +135,7 @@ namespace RpgMvc.Controllers
 
                 string serialized = await response.Content.ReadAsStringAsync();
 
-                if(response.StatusCode == System.Net.HttpStatusCode.OK)
+                if (response.StatusCode == System.Net.HttpStatusCode.OK)
                 {
                     disputa = await Task.Run(() => JsonConvert.DeserializeObject<DisputaViewModel>(serialized));
                     TempData["Mensagem"] = disputa.Narracao;
@@ -177,12 +177,12 @@ namespace RpgMvc.Controllers
                 content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
                 response = await httpClient.PostAsync(uriDisputa, content);
 
-               serialized = await response.Content.ReadAsStringAsync();
+                serialized = await response.Content.ReadAsStringAsync();
 
                 if (response.StatusCode == System.Net.HttpStatusCode.OK)
                 {
-                   disputa = await Task.Run(() => JsonConvert.DeserializeObject<DisputaViewModel>(serialized));
-                   TempData["Mensagem"] = string.Join(" <~~> ", disputa.Resultados);
+                    disputa = await Task.Run(() => JsonConvert.DeserializeObject<DisputaViewModel>(serialized));
+                    TempData["Mensagem"] = string.Join(" <~~> ", disputa.Resultados);
                 }
                 else
                     throw new System.Exception(serialized);
@@ -194,6 +194,62 @@ namespace RpgMvc.Controllers
                 TempData["MensagemErro"] = ex.Message;
                 return RedirectToAction("Index", "Personagens");
             }
+        }
+
+        [HttpGet]
+        public async Task<ActionResult> IndexDisputasAsync()
+        {
+            try
+            {
+                string uriComplementar = "Listar";
+                HttpClient httpClient = new HttpClient();
+
+                string token = HttpContext.Session.GetString("SessionTokenUsuario");
+                httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+                
+                HttpResponseMessage response = await httpClient.GetAsync(uriBase + uriComplementar);
+                string serialized = await response.Content.ReadAsStringAsync();
+
+                if (response.StatusCode == System.Net.HttpStatusCode.OK)
+                {
+                    List<DisputaViewModel> lista = await Task.Run(() => JsonConvert.DeserializeObject<List<DisputaViewModel>>(serialized));
+                    return View(lista);
+                }
+                else
+                    throw new System.Exception(serialized);
+            }
+            catch (System.Exception ex)
+            {
+                TempData["MensagemErro"] = ex.Message;
+                return RedirectToAction("Index");
+            }
+        }
+
+        [HttpGet]
+        public async Task<ActionResult> ApagarDisputasAsync()
+        {
+            try
+            {
+                HttpClient httpClient = new HttpClient();
+
+                string token = HttpContext.Session.GetString("SessionTokenUsuario");
+                httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+                
+                string uriComplementar = "ApagarDisputas";
+                
+                HttpResponseMessage response = await httpClient.DeleteAsync(uriBase + uriComplementar);
+                string serialized = await response.Content.ReadAsStringAsync();
+
+                if (response.StatusCode == System.Net.HttpStatusCode.OK)
+                    TempData["Mensagem"] = "Disputas apagadas com sucessso.";
+                else
+                    throw new System.Exception(serialized);
+            }
+            catch (System.Exception ex)
+            {
+                TempData["MensagemErro"] = ex.Message;
+            }
+            return RedirectToAction("IndexDisputas", "Disputas");
         }
     }
 }
