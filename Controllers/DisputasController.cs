@@ -170,8 +170,8 @@ namespace RpgMvc.Controllers
                 // disputa em grupo
                 string uriDisputa = "http://myprojects.somee.com/RpgApi/Disputas/DisputaEmGrupo";
                 DisputaViewModel disputa = new DisputaViewModel();
-                disputa.ListaIdPersonagens = new List<int>();
-                disputa.ListaIdPersonagens.AddRange(listaPersonagens.Select(p => p.Id));
+                disputa.ListaIdPersonagem = new List<int>();
+                disputa.ListaIdPersonagem.AddRange(listaPersonagens.Select(p => p.Id));
 
                 var content = new StringContent(JsonConvert.SerializeObject(disputa));
                 content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
@@ -182,7 +182,7 @@ namespace RpgMvc.Controllers
                 if (response.StatusCode == System.Net.HttpStatusCode.OK)
                 {
                    disputa = await Task.Run(() => JsonConvert.DeserializeObject<DisputaViewModel>(serialized));
-                   TempData["Mensagem"] = string.Join("<br>", disputa.Resultados);
+                   TempData["Mensagem"] = string.Join(" <~~> ", disputa.Resultados);
                 }
                 else
                     throw new System.Exception(serialized);
