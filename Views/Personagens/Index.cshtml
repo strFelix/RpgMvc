@@ -51,6 +51,7 @@
       @Html.ActionLink("Deletar", "Delete", new { id = item.Id }, new {onclick = "return confirm('Deseja realmente deletar este personagem ?');"})
         </td>
       </tr>
+      
     }
 </table>
 
@@ -59,3 +60,6 @@
 
 @Html.ActionLink("Clique aqui para um embate com habilidades!", "IndexHabilidades", "Disputas",
   null, new {@class = "btn btn-dark"})
+
+  @Html.ActionLink("Clique aqui para um embate em grupo!", "DisputaGeral", "Disputas",
+  null, new {@class = "btn btn-danger"})
