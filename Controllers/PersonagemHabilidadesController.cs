@@ -101,6 +101,35 @@ namespace RpgMvc.Controllers
                 TempData["MensagemErro"] = ex.Message;
                 return RedirectToAction("Create", new {id, nome});
             }
-        }    
+        } 
+
+        [HttpPost]
+        public async Task<ActionResult> CreateAsync(PersonagemHabilidadesViewModel ph)
+        {
+            try
+            {
+                HttpClient httpClient = new HttpClient();
+
+                string token = HttpContext.Session.GetString("SessionTokenUsuario");
+                httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+
+                var content = new StringContent(JsonConvert.SerializeObject(ph));
+                content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+                HttpResponseMessage response = await httpClient.PostAsync(uriBase, content);
+                string serialized = await response.Content.ReadAsStringAsync();
+            
+                if(response.StatusCode == System.Net.HttpStatusCode.OK){
+                    TempData["Mensagem"] = "Habilidade cadastrada com sucesso";
+                }
+                else{
+                    throw new System.Exception(serialized);
+                }
+            }
+            catch (System.Exception ex)
+            {
+                TempData["MensagemErro"] = ex.Message;
+            }
+            return RedirectToAction("Index", new {id = ph.PersonagemId});
+        }   
     }
 }
