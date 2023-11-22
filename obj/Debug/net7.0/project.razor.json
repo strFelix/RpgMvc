@@ -16630,6 +16630,16 @@
       "FileKind": "mvc"
     },
     {
+      "FilePath": "d:\\PastaLocal\\Api\\RpgMvc\\Views\\PersonagemHabilidades\\Create.cshtml",
+      "TargetPath": "Views\\PersonagemHabilidades\\Create.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "d:\\PastaLocal\\Api\\RpgMvc\\Views\\PersonagemHabilidades\\Index.cshtml",
+      "TargetPath": "Views\\PersonagemHabilidades\\Index.cshtml",
+      "FileKind": "mvc"
+    },
+    {
       "FilePath": "d:\\PastaLocal\\Api\\RpgMvc\\Views\\Shared\\_Layout.cshtml",
       "TargetPath": "Views\\Shared\\_Layout.cshtml",
       "FileKind": "mvc"
